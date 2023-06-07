@@ -47,18 +47,18 @@ jobs:
       - name: Package kernel
         run: |
           mkdir kernel
-          if [[ -f android-kernel/out/*/common/arch/arm64/boot/Image.gz-dtb ]]; then
-            echo "压缩格式：Image.gz-dtb" && cp android-kernel/out/*/common/arch/arm64/boot/Image.gz-dtb kernel/Image.gz-dtb
-          elif [[ -f android-kernel/out/*/common/arch/arm64/boot/Image-dtb ]]; then
-            echo "压缩格式：Image-dtb" && cp android-kernel/out/*/common/arch/arm64/boot/Image-dtb kernel/Image-dtb
-          elif [[ -f android-kernel/out/*/common/arch/arm64/boot/Image.gz ]]; then
-            echo "压缩格式：Image.gz" && cp android-kernel/out/*/common/arch/arm64/boot/Image.gz kernel/Image.gz
-          elif [[ -f android-kernel/out/*/common/arch/arm64/boot/Image ]]; then
-            echo "压缩格式：Image" && cp android-kernel/out/*/common/arch/arm64/boot/Image kernel/Image
+          paths=$(pwd)
+          cd android-kernel/out/*/common/arch/arm64/boot/
+          if [[ -f Image.gz-dtb ]]; then
+            echo "压缩格式：Image.gz-dtb" && cd $paths && cp android-kernel/out/*/common/arch/arm64/boot/Image.gz-dtb kernel/
+          elif [[ -f Image-dtb ]]; then
+            echo "压缩格式：Image-dtb" && cd $paths && cp android-kernel/out/*/common/arch/arm64/boot/Image-dtb kernel/
+          elif [[ -f Image.gz ]]; then
+            echo "压缩格式：Image.gz" && cd $paths && cp android-kernel/out/*/common/arch/arm64/boot/Image.gz kernel/
+          elif [[ -f Image ]]; then
+            echo "压缩格式：Image" && cd $paths && cp android-kernel/out/*/common/arch/arm64/boot/Image kernel/
           fi
-          if [ -f android-kernel/out/*/common/arch/arm64/boot/dtbo.img ]; then
-            cp android-kernel/out/*/common/arch/arm64/boot/dtbo.img kernel/dtbo.img
-          fi
+          cd kernel && ls
 
       - name: Upload kernel to artifact
         uses: actions/upload-artifact@v3
