@@ -28,7 +28,7 @@ jobs:
           curl https://storage.googleapis.com/git-repo-downloads/repo > repo && chmod +x ./repo
           ./repo init -u https://android.googlesource.com/kernel/manifest
           cp $paths .repo/manifests/
-          repo init -m manifest_prebuilts.xml
+          ./repo init -m manifest_prebuilts.xml
           ./repo sync -c -j$(($(getconf _NPROCESSORS_ONLN) * 2))
           echo "检查工具完整性"
           ./repo sync && ls
