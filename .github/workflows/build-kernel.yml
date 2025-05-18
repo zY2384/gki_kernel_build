@@ -9,7 +9,7 @@ jobs:
   build-kernel:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup environment
         run: |
           echo "KERNEL_SOURCE=$(cat common_config.env | grep -w "KERNEL_SOURCE" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
