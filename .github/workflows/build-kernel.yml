@@ -61,7 +61,7 @@ jobs:
           cd kernel && ls
 
       - name: Upload kernel to artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gki-kernel
           path: kernel/*
